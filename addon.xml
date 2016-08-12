@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<addon id="plugin.video.schlafschaf" name="Schlafschaf" version="0.0.1" provider-name="stemaj">
+    <requires>
+        <import addon="xbmc.python" version="2.1.0"/>
+    </requires>
+    <extension point="xbmc.python.pluginsource" library="default.py">
+        <provides>video</provides>
+    </extension>
+    <extension point="xbmc.addon.metadata">
+        <platform>all</platform>
+        <summary lang="de">Gute-Nacht-Geschichten für Klein und Groß</summary>
+        <language>de</language>
+        <description lang="de">SchlafSchaf.TV ist eine Gute-Nacht-Geschichte für Groß und Klein. Biblische Geschichten werden so lebendig und unterhaltsam vermittelt, dass auch die Kleineren sofort verstehen, worum es geht. Dafür sorgt nicht nur das wertvolle pädagogische Konzept, sondern auch die drei Hauptfiguren: SchlafSchaf, Esel und Schwein.</description>
+    </extension>
+</addon>
