@@ -5,41 +5,51 @@ import urllib2
 import re
 import httplib
 
-def getUrl(url):
-    error = ''
-    link = ''
-    req = urllib2.Request(url, headers={'accept': '*/*'})
-    req.add_header('User-Agent', 'Mozilla/5.0 (Windows NT 6.1; rv:19.0) Gecko/20100101 Firefox/19.0')
-    try:
-        response = urllib2.urlopen(req)
-        if not response:
-            error = 'No response - Please try again'
-    except urllib2.HTTPError as e:
-        error = 'Error code: ', e.code
-    except urllib2.URLError as e:
-        error = 'Reason: ', e.reason
-    except Exception as e:
-        if e.message:
-            error = e.message
-        else:
-            error = 'Other reason'
-    if not error:
+class StemajUrl(object):
+
+    def __init__(self, *args, **kwargs):
+        return super(StemajUrl, self).__init__(*args, **kwargs)
+
+    def __str__(self):
+        return super(StemajUrl, self).__str__()
+
+    error = "";
+
+    def getUrl(self, url):
+        link = ''
+        req = urllib2.Request(url, headers={'accept': '*/*'})
+        req.add_header('User-Agent', 'Mozilla/5.0 (Windows NT 6.1; rv:19.0) Gecko/20100101 Firefox/19.0')
         try:
-            link = response.read()
-            if not link:
-                error = 'No data - Please try again'
-        except httplib.IncompleteRead as e:
-            error = e.message
+            response = urllib2.urlopen(req)
+            if not response:
+                self.error = 'No response - Please try again'
+        except urllib2.HTTPError as e:
+            self.error = "Error code: " + str(e.code)
+        except urllib2.URLError as e:
+            self.error = 'Reason: ', + str(e.reason)
         except Exception as e:
-            error = e.message
+            if e.message:
+                self.error = e.message
+            else:
+                self.error = 'Other reason'
+        if not self.error:
+            try:
+                link = response.read()
+                if not link:
+                    self.error = 'No data - Please try again'
+            except httplib.IncompleteRead as e:
+                self.error = str(e.message)
+            except Exception as e:
+                self.error = str(e.message)
     
-    if not error:
-        if response:
-            response.close()
+        if not self.error:
+            if response:
+                response.close()
 
-    return (link, error)
+        return link
 
 
+"""Helper Functions"""
 def splitStartingFrom(str, tag):
 
     newStr = str.split(tag);

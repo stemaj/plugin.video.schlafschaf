@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<addon id="plugin.video.schlafschaf" name="Schlafschaf" version="0.0.1" provider-name="stemaj">
+<addon id="plugin.video.schlafschaf" name="Schlafschaf" version="0.0.2" provider-name="stemaj">
     <requires>
-        <import addon="xbmc.python" version="2.1.0"/>
+        <import addon="xbmc.python" version="2.25.0"/>
     </requires>
     <extension point="xbmc.python.pluginsource" library="default.py">
         <provides>video</provides>

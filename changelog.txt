@@ -1,2 +1,6 @@
-0.0.1
+v0.0.1
 - first version
+
+v0.0.2
+- addon requires krypton (kodiv17)
+- architecture

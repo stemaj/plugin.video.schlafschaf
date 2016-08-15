@@ -7,7 +7,7 @@ import xbmcgui
 import xbmcplugin
 import urllib
 import os.path
-import schlafschafCore
+from schlafschafCore import SchlafschafCore
 
 #import ptvsd
 #ptvsd.enable_attach(secret = 'm')
@@ -55,22 +55,28 @@ url = urllib.unquote_plus(params.get('url', ''))
 name = urllib.unquote_plus(params.get('name', ''))
 
 def notification(text):
-    xbmc.executebuiltin('Notification(%s, %s, %d, %s)'%(RES_landschleicher, text, 4500, icon))
+    xbmc.executebuiltin('Notification(%s, %s, %d, %s)'%(addonID, text, 4500, icon))
 
 def listVideos():
-    data = schlafschafCore.getSchlafschafData()
+    sc = SchlafschafCore()
+    data = sc.getSchlafschafData()
+    if (len(sc.error) > 0):
+        notification(sc.error)
+        return
     x = 0
-    for x in range(0,len(data[0])-1):
+    for x in range(0,len(data[0])):
         addLink(data[1][x] + " - " + data[0][x], data[2][x], 'playVideo', data[3][x], data[1][x])
     xbmcplugin.endOfDirectory(addon_handle)
 
 def playVideo(url):
-    vLink = schlafschafCore.getDataFromLink(url, videoquality)
-    #if not vLink[0]:
-    #    notification(vLink[1])
-    #    return
+    sc = SchlafschafCore()
+    vLink = sc.getDataFromLink(url, videoquality)
+    if (len(sc.error) > 0):
+        notification(sc.error)
+        return
     listitem = xbmcgui.ListItem(path=vLink)
     xbmcplugin.setResolvedUrl(addon_handle, True, listitem)
+
 
 if mode == "playVideo":
     playVideo(url)
