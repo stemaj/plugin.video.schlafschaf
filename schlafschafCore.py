@@ -24,9 +24,7 @@ class SchlafschafCore(object):
         if len(self.error) > 0:
             return;
 
-        data = splitStartingFrom(dataMain,"pageNavi");
-
-        articles = splitStartingFrom(data[0], "article ")
+        articles = splitStartingFrom(dataMain, "article ")
 
         links =[]
         imgs =[]
@@ -51,9 +49,8 @@ class SchlafschafCore(object):
         if len(self.error) > 0:
             return;
 
-        url = "rtmpt://c14000-o.f.core.cdn.streamfarm.net/14000cina/mp4:ondemand/3492iptv/xx_erf_Mediathek/"
-        spls = splitStartingFrom(dat, "xx_erf_Mediathek%2F")
-        frag = cutEndingWith(spls[0], "_h264")
+        url = "https://"
+        frag = re.compile("\"og:video\" content=\"https://(.+?)_h264_1500kb.mp4", re.DOTALL).findall(dat)[0]
     
         if quality == 2:
             return url + frag + "_h264_1500kb.mp4"
@@ -65,7 +62,7 @@ class SchlafschafCore(object):
 
 #TEST
 #url = "rtmpt://c14000-o.f.core.cdn.streamfarm.net/14000cina/mp4:ondemand/3492iptv/xx_erf_Mediathek/42_13_058_h264_200kb.mp4"
-#url = "https://www.erf.de/fernsehen/mediathek/schlafschaf-tv/petrus-faengt-viele-fische/6710-37?PHPSESSID=f3584b851e25ae9d032a48de61028836"
+#url = "https://www.erf.de/erf-mediathek/sendungen-a-z/schlafschaf-tv/ein-neuer-juenger/6710-79"
 
 #sc = SchlafschafCore()
 #data = sc.getSchlafschafData()
